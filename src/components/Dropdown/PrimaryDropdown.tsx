@@ -3,18 +3,32 @@ import ArrowDownIcon from "/public/images/ic_arrow-down.svg";
 
 interface PrimaryDropdownProps {
   buttonContent: React.ReactNode | string;
-  options: [string, () => void][];
+  options?: {
+    option: { label: string; value: string };
+    onChange: (option: { label: string; value: string }) => void;
+  }[];
+  children?: React.ReactNode;
+  position?: "center" | "left" | "right";
 }
 
 const PrimaryDropdown = ({
   buttonContent = "",
-  options = [],
+  options,
+  children,
+  position = "left",
 }: PrimaryDropdownProps) => {
   const baseStyle =
     "px-24 py-4 hover:opacity-50 min-w-122 h-42 dark:bg-transparent";
 
+  const positionStyle =
+    position === "center"
+      ? "left-1/2 transform -translate-x-1/2"
+      : position === "right"
+        ? "left-full transform -translate-x-full"
+        : "left-0";
+
   return (
-    <Dropdown>
+    <Dropdown className="w-[max-content]">
       {typeof buttonContent === "string" ? (
         <Dropdown.Button
           className={`${baseStyle} bg-white border-1 border-gray-200 rounded-12 flex items-center justify-between gap-8 dark:bg-transparent`}
@@ -26,12 +40,18 @@ const PrimaryDropdown = ({
         <Dropdown.Button>{buttonContent}</Dropdown.Button>
       )}
 
-      <Dropdown.Content className="mt-8 bg-white border border-gray-200 rounded-12 shadow-sm overflow-hidden [&_button]:border-b-1 [&_button]:border-gray-200 [&_button:last-of-type]:border-none dark:bg-transparent">
-        {options.map(([item, clickItem]) => (
-          <Dropdown.Item className={`${baseStyle} w-full`} onClick={clickItem}>
-            {item}
-          </Dropdown.Item>
-        ))}
+      <Dropdown.Content
+        className={`min-w-100 w-[max-content] flex flex-col mt-8 bg-white border border-gray-200 rounded-12 shadow-sm overflow-hidden [&_button]:border-b-1 [&_button]:border-gray-200 [&_button:last-of-type]:border-none dark:bg-transparent ${positionStyle}`}>
+        {!!options &&
+          options.map(({ option, onChange }) => (
+            <Dropdown.Item
+              className={`${baseStyle} w-full`}
+              key={option.value}
+              onClick={() => onChange(option)}>
+              {option.label}
+            </Dropdown.Item>
+          ))}
+        {!!children && children}
       </Dropdown.Content>
     </Dropdown>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDropdown } from "@/hooks/useDropdown";
+import PrimaryDropdown from "./PrimaryDropdown";
 
 const DropdownWrapper = ({
   className = "",
@@ -129,6 +130,7 @@ const Dropdown = Object.assign(DropdownWrapper, {
   Button: DropdownButton,
   Content: DropdownContent,
   Item: DropdownItem,
+  Primary: PrimaryDropdown,
 });
 
 export default Dropdown;

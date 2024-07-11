@@ -37,21 +37,27 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-
-  body {
-    color: var(--color-white);
-  }
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb)); */
   color: var(--color-cool-gray-800);
+  /* color: rgb(var(--foreground-rgb)); */
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+
+  /* @media (prefers-color-scheme: dark) {
+    color: rgb(var(--foreground-rgb));
+  } */
+}
+
+@layer base {
+  body {
+    @apply dark:text-white;
+  }
 }
 
 @layer components {
@@ -140,18 +146,21 @@ body {
     display: inline-block;
     width: 100%;
     height: 100%;
-    padding: 16px;
     border: none;
-    border-radius: 12px;
+    background-color: transparent;
     line-height: 1;
     resize: none;
-
+    &:focus {
+      outline: none;
+    }
     @media (prefers-color-scheme: dark) {
       color: var(--color-cool-gray-800);
     }
   }
 
-  .custom-input.custom-input--primary {
+  .custom-input--primary {
+    padding: 16px;
+    border-radius: 12px;
     font-size: 16px;
     background-color: var(--color-cool-gray-100);
     &:-webkit-autofill {
