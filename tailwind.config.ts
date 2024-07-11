@@ -14,9 +14,16 @@ const px0_10 = createPxMap(10);
 const px0_100 = createPxMap(100);
 const px0_500 = createPxMap(500);
 
+const SCREEN_SIZE = {
+  desktop: "1200px",
+  tablet: "768px",
+  mobile: "480px",
+};
+
 const config: Config = {
   darkMode: "class",
   safelist: [
+    "dark",
     {
       pattern: /^custom-/,
     },
@@ -29,13 +36,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        desktop: { min: SCREEN_SIZE["desktop"] },
+        tablet: { min: SCREEN_SIZE["tablet"] },
+        mobile: { min: SCREEN_SIZE["mobile"] },
+      },
       borderWidth: px0_10,
       borderRadius: px0_100,
       fontSize: px0_100,
       lineHeight: px0_100,
       minWidth: px0_500,
       minHeight: px0_500,
+      maxWidth: {
+        desktop: SCREEN_SIZE["desktop"],
+        tablet: SCREEN_SIZE["tablet"],
+        mobile: SCREEN_SIZE["mobile"],
+      },
       spacing: px0_500,
+      zIndex: {
+        dropdown: "10",
+        popup: "100",
+        "modal-background": "20",
+        "modal-body": "30",
+      },
       keyframes: {
         buttonHover: {
           "0%": {
