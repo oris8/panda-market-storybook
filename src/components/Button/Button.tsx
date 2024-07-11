@@ -66,6 +66,11 @@ export const Button = Object.assign(BaseButton, {
   SecondaryOutline: SecondaryOutlineButton,
 });
 
+type BaseLinkButtonProps = Omit<
+  BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  ""
+>;
+
 function BaseLinkButton({
   children,
   size = "md",
@@ -74,7 +79,7 @@ function BaseLinkButton({
   style = {},
   href = "",
   ...rest
-}: Omit<BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>, "">) {
+}: BaseLinkButtonProps) {
   const variantStyle = `custom-button ${BUTTON_SIZE[size]} ${variant ? BUTTON_VARIANTS[variant][outline ? "outline" : "solid"] : ""}`;
 
   return (
@@ -84,21 +89,21 @@ function BaseLinkButton({
   );
 }
 
-const PrimaryLinkButton = (props: Omit<BaseButtonProps, "variant">) => (
-  <BaseButton variant="primary" {...props} />
+const PrimaryLinkButton = (props: Omit<BaseLinkButtonProps, "variant">) => (
+  <BaseLinkButton variant="primary" {...props} />
 );
 
 const PrimaryOutlineLinkButton = (
-  props: Omit<BaseButtonProps, "variant" | "outline">
-) => <BaseButton variant="primary" outline={true} {...props} />;
+  props: Omit<BaseLinkButtonProps, "variant" | "outline">
+) => <BaseLinkButton variant="primary" outline={true} {...props} />;
 
-const SecondaryLinkButton = (props: Omit<BaseButtonProps, "variant">) => (
-  <BaseButton variant="secondary" {...props} />
+const SecondaryLinkButton = (props: Omit<BaseLinkButtonProps, "variant">) => (
+  <BaseLinkButton variant="secondary" {...props} />
 );
 
 const SecondaryOutlineLinkButton = (
-  props: Omit<BaseButtonProps, "variant" | "outline">
-) => <BaseButton variant="secondary" outline={true} {...props} />;
+  props: Omit<BaseLinkButtonProps, "variant" | "outline">
+) => <BaseLinkButton variant="secondary" outline={true} {...props} />;
 
 export const LinkButton = Object.assign(BaseLinkButton, {
   Primary: PrimaryLinkButton,
