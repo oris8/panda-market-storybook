@@ -27,6 +27,7 @@ interface BaseButtonProps
 }
 
 function BaseButton({
+  className = "",
   children,
   size = "md",
   variant,
@@ -37,7 +38,7 @@ function BaseButton({
   const variantStyle = `custom-button ${BUTTON_SIZE[size]} ${variant ? BUTTON_VARIANTS[variant][outline ? "outline" : "solid"] : ""}`;
 
   return (
-    <button className={variantStyle} style={style} {...rest}>
+    <button className={`${variantStyle} ${className}`} style={style} {...rest}>
       {children}
     </button>
   );
@@ -72,6 +73,7 @@ type BaseLinkButtonProps = Omit<
 >;
 
 function BaseLinkButton({
+  className = "",
   children,
   size = "md",
   variant,
@@ -83,7 +85,11 @@ function BaseLinkButton({
   const variantStyle = `custom-button ${BUTTON_SIZE[size]} ${variant ? BUTTON_VARIANTS[variant][outline ? "outline" : "solid"] : ""}`;
 
   return (
-    <Link className={variantStyle} style={style} href={href} {...rest}>
+    <Link
+      className={`${variantStyle} ${className}`}
+      style={style}
+      href={href}
+      {...rest}>
       {children}
     </Link>
   );
