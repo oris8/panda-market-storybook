@@ -37,10 +37,15 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+
+  body {
+    color: var(--color-white);
+  }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  /* color: rgb(var(--foreground-rgb)); */
+  color: var(--color-cool-gray-800);
   background: linear-gradient(
       to bottom,
       transparent,
@@ -50,6 +55,7 @@ body {
 }
 
 @layer components {
+  /* -------- BUTTON -------- */
   .custom-button {
     display: inline-block;
     border: none;
@@ -58,12 +64,10 @@ body {
     padding: 0.5rem;
     line-height: 1;
     cursor: pointer;
-
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-
     &:focus {
       outline: none;
     }
@@ -73,15 +77,12 @@ body {
     color: var(--color-white);
     background-color: var(--color-panda-blue);
     border-radius: 40px;
-
     &:hover {
       background-color: var(--color-panda-blue-hover);
     }
-
     &:active {
       background-color: var(--color-panda-blue-active);
     }
-
     &:disabled {
       background-color: var(--color-disable);
     }
@@ -95,21 +96,18 @@ body {
     color: var(--color-white);
     background-color: var(--color-panda-blue);
     border-radius: 8px;
-
     &:hover {
       background-color: var(--color-panda-blue-hover);
     }
-
     &:active {
       background-color: var(--color-panda-blue-active);
     }
-
     &:disabled {
       background-color: var(--color-disable);
     }
   }
   .custom-button.custom-button--secondary-outline {
-    @apply border-1 border-solid bg-white text-panda-blue hover:bg-panda-blue-hover active:bg-panda-blue-active rounded-8;
+    @apply border-1 border-solid bg-white text-panda-blue hover:bg-panda-blue-hover active:bg-panda-blue-active rounded-8 dark:bg-transparent;
   }
 
   .custom-button.custom-button--sm {
@@ -133,10 +131,75 @@ body {
     align-items: center;
     gap: 4px;
   }
+
+  /* -------- BUTTON -------- */
+
+  /* -------- INPUT -------- */
+
+  .custom-input {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    line-height: 1;
+    resize: none;
+
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-cool-gray-800);
+    }
+  }
+
+  .custom-input.custom-input--primary {
+    font-size: 16px;
+    background-color: var(--color-cool-gray-100);
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px var(--color-cool-gray-100) inset;
+      box-shadow: 0 0 0 1000px var(--color-cool-gray-100) inset;
+    }
+    &::placeholder {
+      font-size: 16px;
+      color: var(--color-cool-gray-400);
+    }
+    &:focus {
+      box-shadow: 0 0 0 1px var(--color-panda-blue) inset;
+      outline: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-cool-gray-800);
+    }
+    &.custom-input--error {
+      box-shadow: 0 0 0 1px var(--color-error) inset;
+    }
+  }
+
+  /* -------- INPUT -------- */
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    height: calc(24.5px * 2);
+    line-height: 24.5px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all; /*영어 단어 줄바꿈 처리를 위해*/
+  }
+  .autoImage {
+    object-fit: contain !important;
+    position: relative !important;
+    height: auto !important;
   }
 }
